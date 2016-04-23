@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  type_of_delivery: MyString
+  integer: MyString
+  address: MyString
+  text: MyString
+  user_id: 1
+
+two:
+  status: 1
+  type_of_delivery: MyString
+  integer: MyString
+  address: MyString
+  text: MyString
+  user_id: 1

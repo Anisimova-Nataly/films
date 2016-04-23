@@ -1,0 +1,12 @@
+.page-header
+  %h1 Диски
+-if Film.edit_by?(@current_user)
+  .btn-toolbar
+    =link_to new_dvd_path, class: 'btn btn-primary' do
+      =fa_icon 'plus'
+      Новый диск
+-if @dvds.blank?
+  .alert.alert-info Дисков не найдено
+-else
+  .list-group
+    =render @dvds

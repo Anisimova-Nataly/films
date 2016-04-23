@@ -1,0 +1,10 @@
+=link_to dvd, class: 'list-group-item' do
+  .media
+    -if dvd.cover?
+      .media-left=image_tag dvd.cover.url(:thumb), alt: dvd.name, class: 'media-object'
+    .media-body
+      %h4.media-heading
+        =dvd.name
+      %i
+        =dvd.film.name
+    

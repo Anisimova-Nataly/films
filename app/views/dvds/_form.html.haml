@@ -1,0 +1,41 @@
+= form_for @dvd do |f|
+  =error_messages_for(@dvd)
+  .row
+    .col-md-4
+      .form-group
+        =f.label :name
+        =f.text_field :name, class: 'form-control'
+
+    .col-md-4
+      .form-group
+        =f.label :cover
+        =f.file_field :cover
+
+      -if @dvd.cover?
+        .text-center
+          =link_to @dvd.cover.url do
+            =image_tag @dvd.cover.url(:thumb), alt: @dvd.name
+
+  .row
+    .col-md-3
+      .form-group
+        =f.label :film_id
+        =f.select :film_id, Film.ordering.map{|c| [c.name,c.id]},{}, class: 'form-control'
+    .col-md-3
+      .form-group
+        =f.label :price
+        =f.text_field :price, class: 'form-control'
+    .col-md-2
+      .form-group
+        =f.label :amount
+        =f.text_field :amount, class: 'form-control'
+    .col-md-2
+      .form-group
+        =f.label :cover_type
+        =f.text_field :cover_type, class: 'form-control'
+
+
+
+
+  .actions
+    = f.submit nil, class: 'btn btn-primary'

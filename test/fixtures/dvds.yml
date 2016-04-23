@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cover_file_name: MyString
+  cover_file_size: 1
+  cover_content_type: MyString
+  cover_updated_at: 2016-04-18 16:44:20
+  name: MyText
+  price: 1
+  amount: 1
+  film_id: 1
+
+two:
+  cover_file_name: MyString
+  cover_file_size: 1
+  cover_content_type: MyString
+  cover_updated_at: 2016-04-18 16:44:20
+  name: MyText
+  price: 1
+  amount: 1
+  film_id: 1

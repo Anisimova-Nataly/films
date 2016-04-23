@@ -1,0 +1,26 @@
+.page-header
+
+  %h1 Мои заказы:
+
+
+%p
+  %b Статус:
+  = @basket.status
+%p
+  %b Тип доставки:
+  = @basket.type_of_delivery
+
+%p
+  %b Адрес:
+  = @basket.address
+%p
+  %b Пользователь:
+  = @basket.user.name
+
+-if @basket.cart_items.any?
+  .list-group
+  =render @basket.cart_items
+-else
+  Корзина пуста.
+
+= link_to 'Edit', edit_basket_path(@basket)

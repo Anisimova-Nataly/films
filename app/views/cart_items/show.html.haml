@@ -1,0 +1,27 @@
+.page-header
+  %h1
+    =@cart_item.dvd.name
+.row
+  .col-md-3
+    -if @cart_item.dvd.cover?
+      =image_tag @cart_item.dvd.cover.url(:medium), alt: @cart_item.dvd.name, class: 'img-responsive'
+
+  .col-md-9
+  %dl
+  -if @cart_item.dvd.film.name
+    %dt='Фильм'
+    %dd=link_to @cart_item.dvd.film.name, @cart_item.dvd.film
+  -if @cart_item.dvd.price
+    %dt='Цена'
+    %dd=@cart_item.dvd.price
+  -if @cart_item.amount
+    %dt='Количество'
+    %dd=@cart_item.dvd.amount
+  -if @cart_item.dvd.cover_type
+    %dt='Тип обложки'
+    %dd=@cart_item.dvd.cover_type
+
+%br
+  =link_to @cart_item, data: {method: :delete, confirm: t('helpers.sure')}, class: 'btn btn-danger' do
+    =fa_icon 'trash'
+    Убрать из корзины

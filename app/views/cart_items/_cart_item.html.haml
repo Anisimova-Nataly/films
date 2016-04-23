@@ -1,0 +1,14 @@
+=link_to cart_item, class: 'list-group-item' do
+  .media
+    -if cart_item.cover?
+      .media-left=image_tag cart_item.cover.url(:thumb), class: 'media-object'
+    .media-body
+      %h4.media-heading
+        =cart_item.dvd.name
+      %i
+        =cart_item.dvd.film.name
+      %br
+      %small.text-muted=cart_item.dvd.price
+      %small.text-muted руб
+      %br
+    

@@ -1,0 +1,31 @@
+.page-header
+  %h1
+    =@dvd.name
+=render 'menu'
+.row
+.col-md-3
+  -if @dvd.cover?
+    =image_tag @dvd.cover.url(:medium), alt: @dvd.name, class: 'img-responsive'
+
+.col-md-9
+  %dl
+    -if @dvd.film.name
+      %dt='Фильм'
+      %dd=link_to @dvd.film.name, @dvd.film
+    -if @dvd.price
+      %dt='Цена'
+      %dd=@dvd.price
+    -if @dvd.amount
+      %dt='В наличии'
+      %dd=@dvd.amount
+    -if @dvd.cover_type
+      %dt='Тип обложки'
+      %dd=@dvd.cover_type
+
+
+  -if not Dvd.edit_by?(@current_user)
+    .btn-toolbar
+
+      =link_to new_cart_item_path(key:@dvd.price, disk: @dvd.id),id: @dvd, class: 'btn btn-danger' do
+        =fa_icon 'shopping-bag'
+        В корзину

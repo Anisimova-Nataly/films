@@ -1,0 +1,27 @@
+= form_for @basket do |f|
+  - if @basket.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@basket.errors.count, "error")} prohibited this basket from being saved:"
+      %ul
+        - @basket.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :status
+    = f.number_field :status
+  .field
+    = f.label :type_of_delivery
+    = f.text_field :type_of_delivery
+  .field
+    = f.label :address
+    = f.text_field :address
+
+%h3 Мои заказы:
+-if @basket.cart_items.any?
+  .list-group
+    =render @basket.cart_items
+-else
+  Корзина пуста.
+
+  .actions
+    = f.submit 'Save'
