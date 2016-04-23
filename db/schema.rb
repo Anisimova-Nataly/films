@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422164751) do
+ActiveRecord::Schema.define(version: 20160423212807) do
 
   create_table "baskets", force: :cascade do |t|
     t.integer  "status"
-    t.string   "type_of_delivery"
     t.string   "integer"
     t.string   "address"
     t.string   "text"
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "type_of_delivery"
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20160422164751) do
     t.string   "cover_file_name"
     t.string   "cover_content_type"
     t.string   "cover_updated_at"
+    t.string   "address"
+    t.integer  "type_of_delivery"
   end
 
   create_table "countries", force: :cascade do |t|

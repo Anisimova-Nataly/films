@@ -1,27 +1,61 @@
-.page-header
-  %h1
-    =@cart_item.dvd.name
+
+-if  not User.edit_by?(@current_user)
+  %br
+  -if not @cart_item.status == 2
+    -if not @cart_item.status == 3
+      -if not @cart_item.status == 4
+        =link_to @cart_item, data: {method: :delete, confirm: t('helpers.sure')}, class: 'btn btn-danger' do
+          =fa_icon 'trash'
+          Убрать из корзины
+        =link_to edit_cart_item_path(@cart_item, st: 2), class: 'btn btn-danger' do
+          =fa_icon 'rub'
+          Оплатить этот диск
+        =link_to edit_cart_item_path(@cart_item, st: 1), class: 'btn btn-primary' do
+          =fa_icon 'edit'
+          Редактировать
+%br
+%br
 .row
   .col-md-3
-    -if @cart_item.dvd.cover?
-      =image_tag @cart_item.dvd.cover.url(:medium), alt: @cart_item.dvd.name, class: 'img-responsive'
+    -if @cart_item.cover?
+      =image_tag @cart_item.cover.url(:medium), alt: @cart_item.dvd.name, class: 'img-responsive'
 
   .col-md-9
-  %dl
+  -if @cart_item.dvd.name
+    %dd=@cart_item.dvd.name
   -if @cart_item.dvd.film.name
     %dt='Фильм'
     %dd=link_to @cart_item.dvd.film.name, @cart_item.dvd.film
-  -if @cart_item.dvd.price
+  -if @cart_item.price
     %dt='Цена'
-    %dd=@cart_item.dvd.price
+    %small.text-muted=@cart_item.price
+    %small.text-muted руб
   -if @cart_item.amount
     %dt='Количество'
-    %dd=@cart_item.dvd.amount
+    %dd=@cart_item.amount
   -if @cart_item.dvd.cover_type
     %dt='Тип обложки'
     %dd=@cart_item.dvd.cover_type
-
-%br
-  =link_to @cart_item, data: {method: :delete, confirm: t('helpers.sure')}, class: 'btn btn-danger' do
-    =fa_icon 'trash'
-    Убрать из корзины
+  -if @cart_item.address
+    %dt='Адрес доставки'
+    %dd=@cart_item.address
+  -if @cart_item.address
+    %dt='Тип Доставки'
+    %small.text-muted=@cart_item.delivery_name
+  -if @cart_item.status
+    %dt='Статус'
+    -if @cart_item.status == 1
+      %small.text-muted  Ожидается оплата
+    -if @cart_item.status == 2
+      %small.text-muted  Оплачено
+    -if @cart_item.status == 3
+      %small.text-muted  Доставляется
+    -if @cart_item.status == 4
+      %small.text-muted  Доставлено
+  -else
+    %dt='Статус'
+    %small.text-muted  Ожидается оплата
+.btn-toolbar
+  =link_to @cart_item.basket, class: 'btn btn-primary' do
+    =fa_icon 'reply'
+    Назад

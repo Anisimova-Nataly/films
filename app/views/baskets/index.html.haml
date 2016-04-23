@@ -1,31 +1,5 @@
-%h1 Listing baskets
+.page-header
+  %h1 Корзины пользователей
 
-%table
-  %thead
-    %tr
-      %th Status
-      %th Type of delivery
-      %th Integer
-      %th Address
-      %th Text
-      %th User
-      %th
-      %th
-      %th
-
-  %tbody
-    - @baskets.each do |basket|
-      %tr
-        %td= basket.status
-        %td= basket.type_of_delivery
-        %td= basket.integer
-        %td= basket.address
-        %td= basket.text
-        %td= basket.user_id
-        %td= link_to 'Show', basket
-        %td= link_to 'Edit', edit_basket_path(basket)
-        %td= link_to 'Destroy', basket, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Basket', new_basket_path
+.list-group
+  =render @baskets

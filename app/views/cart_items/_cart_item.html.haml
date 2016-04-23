@@ -5,10 +5,19 @@
     .media-body
       %h4.media-heading
         =cart_item.dvd.name
+      -if not cart_item.status 
+        %h5  Ожидается оплата
+      -if cart_item.status == 1
+        %h5  Ожидается оплата
+      -if cart_item.status == 2
+        %h5  Оплачено
+      -if cart_item.status == 3
+        %h5  Доставляется
+      -if cart_item.status == 4
+        %h5  Доставлено
       %i
         =cart_item.dvd.film.name
       %br
-      %small.text-muted=cart_item.dvd.price
+      %small.text-muted=cart_item.price
       %small.text-muted руб
       %br
-    

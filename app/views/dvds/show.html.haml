@@ -23,9 +23,9 @@
       %dd=@dvd.cover_type
 
 
-  -if not Dvd.edit_by?(@current_user)
-    .btn-toolbar
+-if not Dvd.edit_by?(@current_user)
+  .btn-toolbar
 
-      =link_to new_cart_item_path(key:@dvd.price, disk: @dvd.id),id: @dvd, class: 'btn btn-danger' do
-        =fa_icon 'shopping-bag'
-        В корзину
+    =link_to new_cart_item_path(key:@dvd.price, disk: @dvd.id),id: @dvd, class: 'btn btn-danger' do
+      =fa_icon 'shopping-basket'
+      В корзину

@@ -10,6 +10,14 @@ class BasketsController < ApplicationController
   # GET /baskets/1
   # GET /baskets/1.json
   def show
+    if params[:st]
+      @basket.cart_items.each do |f|
+        if f.status == 1
+          f.status = params[:st]
+        end
+      end
+    end
+  
   end
 
   # GET /baskets/new
@@ -19,13 +27,14 @@ class BasketsController < ApplicationController
 
   # GET /baskets/1/edit
   def edit
+
   end
 
   # POST /baskets
   # POST /baskets.json
   def create
     @basket = Basket.new(basket_params)
-
+    @basker.status = '1'
     respond_to do |format|
       if @basket.save
         format.html { redirect_to @basket, notice: 'Basket was successfully created.' }

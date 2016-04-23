@@ -15,12 +15,14 @@ class CartItemsController < ApplicationController
   # GET /cart_items/new
   def new
     @dvd = Dvd.find(params[:disk])
-    @cart_item = CartItem.new(price: @dvd.price, cover: @dvd.cover, dvd:  @dvd)
+    @cart_item = CartItem.new(price: @dvd.price, cover: @dvd.cover, dvd:  @dvd, address: @current_user.basket.address,type_of_delivery: @current_user.basket.type_of_delivery)
   end
 
   # GET /cart_items/1/edit
   def edit
+    @cart_item.status = params[:st]
   end
+
 
   # POST /cart_items
   # POST /cart_items.json
@@ -30,7 +32,17 @@ class CartItemsController < ApplicationController
     @cart_item.price = @cart_item.dvd.try(:price)
     @cart_item.basket = @current_user.basket
     @cart_item.cover = @cart_item.dvd.try(:cover)
-    @cart_item.dvd = Dvd.find(params[:disk])
+    @cart_item.status = 1
+    if not @cart_item.address
+      if @current_user.basket.address
+        @cart_item.address = @current_user.basket.address
+      end
+    end
+    if not @cart_item.type_of_delivery
+      if @current_user.basket.type_of_delivery
+        @cart_item.type_of_delivery = @current_user.basket.type_of_delivery
+      end
+    end
   #  @cart_item.price = @dvd.price
     respond_to do |format|
       if @cart_item.save
@@ -48,7 +60,7 @@ class CartItemsController < ApplicationController
   def update
     respond_to do |format|
       if @cart_item.update(cart_item_params)
-        format.html { redirect_to @cart_item, notice: 'Cart item was successfully updated.' }
+        format.html { redirect_to @cart_item, notice: 'Информация о заказаном диске обновлена .' }
         format.json { render :show, status: :ok, location: @cart_item }
       else
         format.html { render :edit }
@@ -57,24 +69,31 @@ class CartItemsController < ApplicationController
     end
   end
 
+
+  def pay
+    @cart_item.status = 2
+  end
+
+
+
   # DELETE /cart_items/1
   # DELETE /cart_items/1.json
   def destroy
+    # Use callbacks to share common setup or constraints between actions.
     @cart_item.destroy
     respond_to do |format|
-      format.html { redirect_to cart_items_url, notice: 'Cart item was successfully destroyed.' }
+      format.html { redirect_to basket_url(@cart_item.basket), notice: 'Диск удален из конрзины.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_cart_item
       @cart_item = CartItem.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_item_params
-      params.require(:cart_item).permit(:amount, :dvd_id, :basket_id, :cover)
+      params.require(:cart_item).permit(:amount, :dvd_id, :basket_id, :cover, :status, :address, :type_of_delivery)
     end
 end

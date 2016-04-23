@@ -1,0 +1,20 @@
+=link_to basket, class: 'list-group-item' do
+  .media
+    .media-body
+      %h4.media-heading
+        =basket.user.name
+      %i
+        =basket.user.email
+      -if not basket.status ==nil
+        -if basket.status == 0
+          %small.text-muted  Корзина пуста
+        -if basket.status == 1
+          %small.text-muted  Ожидается оплата
+        -if basket.status == 2
+          %small.text-muted  Оплачено
+        -if basket.status == 3
+          %small.text-muted  Доставляется
+        -if basket.status == 4
+          %small.text-muted  Доставлено
+      -else
+        %small.text-muted  Корзина пуста
