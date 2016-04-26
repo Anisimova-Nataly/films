@@ -1,5 +1,5 @@
 class AddDetailsToBasket < ActiveRecord::Migration
   def change
-    add_column :baskets, :type_of_delivery, :integer
+    add_column :baskets, :price, :integer
   end
 end

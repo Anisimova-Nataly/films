@@ -34,11 +34,19 @@
   %b Адрес:
   = @basket.address
 %p
+
+%p
+  -@basket.set_price
+  %b Цена :
+  = @basket.price
+%p
+
   %b Пользователь:
   = @basket.user.name
-=link_to edit_basket_path(@basket), class: 'btn btn-primary' do
-  =fa_icon 'edit'
-  Редактировать
+-if @basket.status == 0
+  =link_to edit_basket_path(@basket), class: 'btn btn-primary' do
+    =fa_icon 'edit'
+    Редактировать
 %p
 
 -if @basket.cart_items.any?

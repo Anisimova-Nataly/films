@@ -5,7 +5,9 @@
       -if(basket.user)
         %h4.media-heading
           =basket.user.name
+        -basket.set_price  
         %i
-          =basket.user.email
+          =basket.price
+        %i pyб
       %br
       %small.text-muted=basket.status_name

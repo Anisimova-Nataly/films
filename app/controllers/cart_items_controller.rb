@@ -31,8 +31,11 @@ class CartItemsController < ApplicationController
     @cart_item.price = @cart_item.dvd.try(:price)
     if @current_user.baskets.find_by status:0
       @cart_item.basket = @current_user.baskets.find_by status:0
+      @cart_item.basket.set_price
+      @cart_item.basket.save
     else
-      @cart_item.basket=@current_user.baskets.create(status: 0)
+      @cart_item.basket=@current_user.baskets.create(status: 0 )
+      @cart_item.basket.set_price
       @cart_item.basket.save
     end
     @cart_item.cover = @cart_item.dvd.try(:cover)
@@ -65,16 +68,13 @@ class CartItemsController < ApplicationController
   end
 
 
-  def pay
-    @cart_item.status = 2
-  end
-
 
 
   # DELETE /cart_items/1
   # DELETE /cart_items/1.json
   def destroy
     # Use callbacks to share common setup or constraints between actions.
+
     @cart_item.destroy
     respond_to do |format|
       format.html { redirect_to basket_url(@cart_item.basket), notice: 'Диск удален из конрзины.' }

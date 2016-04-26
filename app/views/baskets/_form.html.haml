@@ -18,6 +18,10 @@
     =f.label :Адрес_доставки
     =f.text_field :address, class: 'form-control'
   %br
+    -if @basket.price
+      %b Цена :
+      = @basket.price
+  %p
   .btn-toolbar
     = f.submit 'Готово', class: 'btn btn-danger'
     %br

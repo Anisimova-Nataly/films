@@ -5,10 +5,13 @@
     .media-body
       %h4.media-heading
         =cart_item.dvd.name
-      
+
       %i
         =cart_item.dvd.film.name
       %br
       %small.text-muted=cart_item.price
       %small.text-muted руб
       %br
+      %i
+      =cart_item.amount
+      шт

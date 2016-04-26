@@ -10,9 +10,14 @@ class BasketsController < ApplicationController
   # GET /baskets/1
   # GET /baskets/1.json
   def show
+    @basket.set_price
     if params[:st]
-      @basket.status=params[:st]
-      @basket.save
+      if @basket.address
+        @basket.status=params[:st]
+        @basket.save
+      else
+          redirect_to @basket, notice: 'Не указан адрес'
+      end
     end
   end
 
@@ -24,18 +29,25 @@ class BasketsController < ApplicationController
 
   # GET /baskets/1/edit
   def edit
-    if params[:st]
-      @basket.status=params[:st]
-      @basket.save
+    @basket.set_price
+    def show
+      if params[:st]
+        if @basket.address
+          @basket.status=params[:st]
+          @basket.save
+        else
+            redirect_to @basket, notice: 'Не указан адрес'
+        end
+      end
     end
-  end
-
+end
 
   # POST /baskets
   # POST /baskets.json
   def create
     @basket = Basket.new(basket_params)
     @basker.status = 0
+    @cart_item.basket.set_price
     @basker.user = @current_user
     respond_to do |format|
       if @basket.save
@@ -51,6 +63,7 @@ class BasketsController < ApplicationController
   # PATCH/PUT /baskets/1
   # PATCH/PUT /baskets/1.json
   def update
+    @cart_item.basket.set_price
     respond_to do |format|
       if @basket.update(basket_params)
         format.html { redirect_to @basket, notice: 'Basket was successfully updated.' }

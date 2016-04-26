@@ -15,6 +15,15 @@ STAT = %w(Ожидается_оплата Оплачено Доставляет�
     def self.edit_by?(u)
       u.try(:admin?)
     end
+
+    def set_price
+      pr=0
+      self.cart_items.each  do |c|
+        pr =pr + c.price*c.amount.to_i
+      end
+      self.price=pr
+    end
+
     def set_default_delivery
       self.type_of_delivery||=0
     end
