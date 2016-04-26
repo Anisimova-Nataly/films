@@ -1,9 +1,27 @@
 .page-header
   -if User.edit_by?(@current_user)
-    %h1 Корзина пользователя
+    %h1 Заказ пользователя
     %h1=@basket.user.name
   -else
-    %h1 Моя корзина
+    %h1 Мой заказ
+
+
+-if  User.edit_by?(@current_user)
+  %br
+  -if @basket.status == 1
+    =link_to basket_path(@basket,st:2), class: 'btn btn-primary' do
+      =fa_icon 'truck'
+      Перевести на статус "Доставляется"
+  -if @basket.status == 2
+    =link_to basket_path(@basket,st:3), class: 'btn btn-primary' do
+      =fa_icon 'check'
+      Перевести на статус "Доставлено"
+  -if @basket.status == 3
+    =link_to @basket, data: {method: :delete, confirm: t('helpers.sure')}, class: 'btn btn-danger' do
+      =fa_icon 'trash'
+      Удалить
+%p
+
 %p
   %b Статус:
   %small.text-muted=@basket.status_name
@@ -31,6 +49,6 @@
     -if @basket.status == 0
       =link_to basket_path(@basket,st:1), class: 'btn btn-danger' do
         =fa_icon 'rub'
-        Оплатить
+        Оплатить все
 -else
   %h3 Корзина пуста.

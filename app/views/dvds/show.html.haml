@@ -14,7 +14,8 @@
       %dd=link_to @dvd.film.name, @dvd.film
     -if @dvd.price
       %dt='Цена'
-      %dd=@dvd.price
+      %small.text-muted=@dvd.price
+      %small.text-muted руб
     -if @dvd.amount
       %dt='В наличии'
       %dd=@dvd.amount
