@@ -33,6 +33,7 @@ class CartItemsController < ApplicationController
       @cart_item.basket = @current_user.baskets.find_by status:0
     else
       @cart_item.basket=@current_user.baskets.create(status: 0)
+      @cart_item.basket.save
     end
     @cart_item.cover = @cart_item.dvd.try(:cover)
 

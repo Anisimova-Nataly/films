@@ -10,7 +10,10 @@ class BasketsController < ApplicationController
   # GET /baskets/1
   # GET /baskets/1.json
   def show
-    @basket.status= params[:st]
+    if params[:st]
+      @basket.status=params[:st]
+      @basket.save
+    end
   end
 
   # GET /baskets/new
@@ -21,7 +24,10 @@ class BasketsController < ApplicationController
 
   # GET /baskets/1/edit
   def edit
-    @basket.status= params[:st]
+    if params[:st]
+      @basket.status=params[:st]
+      @basket.save
+    end
   end
 
 

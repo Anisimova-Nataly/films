@@ -1,9 +1,11 @@
-=link_to edit_basket_path(basket), class: 'list-group-item' do
+
+=link_to basket_path(basket), class: 'list-group-item' do
   .media
     .media-body
-      %h4.media-heading
-        =basket.user.name
-      %i
-        =basket.user.email
+      -if(basket.user)
+        %h4.media-heading
+          =basket.user.name
+        %i
+          =basket.user.email
       %br
       %small.text-muted=basket.status_name

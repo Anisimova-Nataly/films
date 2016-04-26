@@ -1,10 +1,11 @@
 .page-header
   -if User.edit_by?(@current_user)
     %h1 Корзина пользователя
-    %h1=@basket.user_id.name
+    %h1=@basket.user.name
   -else
     %h1 Моя корзина
 %p
+  %b Статус:
   %small.text-muted=@basket.status_name
 
 %p

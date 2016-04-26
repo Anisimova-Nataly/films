@@ -7,9 +7,14 @@ STAT = %w(Ожидается_оплата Оплачено Доставляет�
     belongs_to :user
 
     validates :user, presence:true
+    validates :status, presence:true
     before_validation :set_default_delivery
     before_validation :set_default_status
 
+
+    def self.edit_by?(u)
+      u.try(:admin?)
+    end
     def set_default_delivery
       self.type_of_delivery||=0
     end
@@ -22,21 +27,11 @@ STAT = %w(Ожидается_оплата Оплачено Доставляет�
       self.status||=0
     end
 
-    def set_status
-      self.status=0
-      self.cart_items.each do |f|
-        if f.status ==2
-          self.status=1
-        end
-        if f.status ==3
-          self.status=1
-        end
-      end
-    end
-
     def status_name
       status && STAT[status]
     end
 
-
+    def set_status(s)
+      self.status = s
+    end
 end
