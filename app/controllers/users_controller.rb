@@ -21,7 +21,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.basket = Basket.new
     if @user.save
       if @current_user
         redirect_to @user, notice: 'Пользователь создан'

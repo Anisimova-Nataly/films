@@ -18,7 +18,7 @@
           %li=link_to 'Заказы', baskets_path
         -else
           -if @current_user!=nil
-            %li=link_to 'Корзина', basket_path(@current_user.basket)
+            %li=link_to 'Корзина', baskets_path
 
       %ul.nav.navbar-nav.navbar-right
         -if @current_user

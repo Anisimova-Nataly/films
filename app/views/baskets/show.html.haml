@@ -1,24 +1,12 @@
 .page-header
   -if User.edit_by?(@current_user)
     %h1 Корзина пользователя
-    %h1=@basket.user.name
+    %h1=@basket.user_id.name
   -else
     %h1 Моя корзина
 %p
-  %b Статус:
-  -if not @basket.status ==nil
-    -if @basket.status == 0
-      %small.text-muted  Корзина пуста
-    -if @basket.status == 1
-      %small.text-muted  Ожидается оплата
-    -if @basket.status == 2
-      %small.text-muted  Оплачено
-    -if @basket.status == 3
-      %small.text-muted  Доставляется
-    -if @basket.status == 4
-      %small.text-muted  Доставлено
-  -else
-    %small.text-muted  Корзина пуста
+  %small.text-muted=@basket.status_name
+
 %p
   %b Тип доставки:
   = @basket.delivery_name
@@ -29,32 +17,19 @@
 %p
   %b Пользователь:
   = @basket.user.name
-
+=link_to edit_basket_path(@basket), class: 'btn btn-primary' do
+  =fa_icon 'edit'
+  Редактировать
+%p
 
 -if @basket.cart_items.any?
-  %h3 Заказы на статусе "Ожидание оплаты":
   -@basket.cart_items.each do |f|
-    -if f.status == 1
-      =render f
-  =link_to basket_path(@basket,st:2), class: 'btn btn-danger' do
-    =fa_icon 'rub'
-    Оплатить все
-
-
-
-  %h3 Заказы на статусе "Оплачено":
-  -@basket.cart_items.each do |f|
-    -if f.status == 2
-      =render f
-  %h3 Заказы на статусе "Доставляется":
-  -@basket.cart_items.each do |f|
-    -if f.status == 3
-      =render f
-  %h3 Заказы на статусе "Доставлено":
-  -@basket.cart_items.each do |f|
-    -if f.status == 4
-      =render f
+    =render f
+  %br
+  -if not User.edit_by?(@current_user)
+    -if @basket.status == 0
+      =link_to basket_path(@basket,st:1), class: 'btn btn-danger' do
+        =fa_icon 'rub'
+        Оплатить
 -else
   %h3 Корзина пуста.
-
-= link_to 'Edit', edit_basket_path(@basket)

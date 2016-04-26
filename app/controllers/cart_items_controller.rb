@@ -15,12 +15,11 @@ class CartItemsController < ApplicationController
   # GET /cart_items/new
   def new
     @dvd = Dvd.find(params[:disk])
-    @cart_item = CartItem.new(price: @dvd.price, cover: @dvd.cover, dvd:  @dvd, address: @current_user.basket.address,type_of_delivery: @current_user.basket.type_of_delivery)
+    @cart_item = CartItem.new(price: @dvd.price, cover: @dvd.cover, dvd:  @dvd, amount:1)
   end
 
   # GET /cart_items/1/edit
   def edit
-    @cart_item.status = params[:st]
   end
 
 
@@ -30,23 +29,18 @@ class CartItemsController < ApplicationController
 
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.price = @cart_item.dvd.try(:price)
-    @cart_item.basket = @current_user.basket
+    if @current_user.baskets.find_by status:0
+      @cart_item.basket = @current_user.baskets.find_by status:0
+    else
+      @cart_item.basket=@current_user.baskets.create(status: 0)
+    end
     @cart_item.cover = @cart_item.dvd.try(:cover)
-    @cart_item.status = 1
-    if not @cart_item.address
-      if @current_user.basket.address
-        @cart_item.address = @current_user.basket.address
-      end
-    end
-    if not @cart_item.type_of_delivery
-      if @current_user.basket.type_of_delivery
-        @cart_item.type_of_delivery = @current_user.basket.type_of_delivery
-      end
-    end
+
+
   #  @cart_item.price = @dvd.price
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to basket_url(@current_user.basket), notice: 'Ваш заказ обрабатывается.' }
+        format.html { redirect_to basket_url(@cart_item.basket), notice: 'Ваш заказ обрабатывается.' }
         format.json { render :show, status: :created, location: @cart_item }
       else
         format.html { render :new }
