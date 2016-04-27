@@ -5,7 +5,7 @@ STAT = %w(Ожидается_оплата Оплачено Доставляет�
 
     has_many :cart_items
     belongs_to :user
-
+    scope :ordering, -> { order(:name) }
     validates :user, presence:true
     validates :status, presence:true
     before_validation :set_default_delivery

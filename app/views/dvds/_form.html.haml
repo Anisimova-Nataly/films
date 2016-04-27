@@ -3,12 +3,12 @@
   .row
     .col-md-4
       .form-group
-        =f.label :name
+        =f.label :Название
         =f.text_field :name, class: 'form-control'
 
     .col-md-4
       .form-group
-        =f.label :cover
+        =f.label :Обложка
         =f.file_field :cover
 
       -if @dvd.cover?
@@ -19,16 +19,16 @@
   .row
     .col-md-3
       .form-group
-        =f.label :film_id
+        =f.label :Фильм
         =f.select :film_id, Film.ordering.map{|c| [c.name,c.id]},{}, class: 'form-control'
     .col-md-3
       .form-group
-        =f.label :price
+        =f.label :Цена
         =f.text_field :price, class: 'form-control'
-  
+
     .col-md-2
       .form-group
-        =f.label :cover_type
+        =f.label :Тип_обложки
         =f.text_field :cover_type, class: 'form-control'
 
 

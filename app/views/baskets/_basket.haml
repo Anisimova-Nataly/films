@@ -1,13 +1,18 @@
-
 =link_to basket_path(basket), class: 'list-group-item' do
   .media
     .media-body
       -if(basket.user)
         %h4.media-heading
           =basket.user.name
-        -basket.set_price  
+        -basket.set_price
         %i
           =basket.price
         %i pyб
-      %br
-      %small.text-muted=basket.status_name
+      -if basket.status == 2
+        %span.label.label-danger=basket.status_name
+      -if basket.status == 1
+        %span.label.label-warning=basket.status_name
+      -if basket.status == 0
+        %span.label.label-info=basket.status_name
+      -if basket.status == 3
+        %span.label.label-default=basket.status_name

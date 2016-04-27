@@ -4,8 +4,11 @@
   -else
     %h1 Мои заказы
 
-.list-group
 -if Basket.edit_by?(@current_user)
-  =render @baskets
+  .list-group
+    =render @baskets
+  =paginate @baskets
 -else
-  =render @current_user.baskets
+  .list-group
+    =render @current_user.baskets
+  

@@ -8,7 +8,14 @@
         - @basket.errors.full_messages.each do |msg|
           %li= msg
 
-    %small.text-muted=@basket.status_name
+  -if @basket.status == 2
+    %span.label.label-important=@basket.status_name
+  -if @basket.status == 1
+    %span.label.label-warning=@basket.status_name
+  -if @basket.status == 0
+    %span.label.label-info=@basket.status_name
+  -if @basket.status == 3
+    %span.label.label-default=@basket.status_name
   %br
   %br
   .form-group

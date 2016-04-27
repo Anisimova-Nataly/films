@@ -48,6 +48,10 @@ ru:
         cover: Постер
         description: Описание
         people: Актеры
+      dvd:
+        name: Название
+        price: Цена
+        cover_type: Тип обложки
   views:
     pagination:
       first: ⇤

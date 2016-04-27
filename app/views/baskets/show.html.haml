@@ -23,8 +23,14 @@
 %p
 
 %p
-  %b Статус:
-  %small.text-muted=@basket.status_name
+-if @basket.status == 2
+  %span.label.label-danger=@basket.status_name
+-if @basket.status == 1
+  %span.label.label-warning=@basket.status_name
+-if @basket.status == 0
+  %span.label.label-info=@basket.status_name
+-if @basket.status == 3
+  %span.label.label-default=@basket.status_name
 
 %p
   %b Тип доставки:
@@ -51,7 +57,7 @@
 -if User.edit_by?(@current_user)
   =link_to edit_basket_path(@basket), class: 'btn btn-primary' do
     =fa_icon 'edit'
-    Редактировать      
+    Редактировать
 %p
 
 -if @basket.cart_items.any?

@@ -12,3 +12,15 @@
  *
  *= require theme
  */
+
+
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import "font-awesome";
+ @import "fonts";
+ @import "token-input-bootstrap3";
+
+ .nav {
+   color:  $brand-warning
+ }

@@ -12,3 +12,5 @@
   %dd=@user.name
   %dt=User.human_attribute_name(:role)
   %dd=@user.role_name
+-@user.baskets.each do |b|
+  =render b

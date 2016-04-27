@@ -1,6 +1,8 @@
 class DvdsController < ApplicationController
   before_action :check_authentication, except: :index
   before_action :set_dvd, only: [:show, :edit, :update, :destroy]
+  before_action :check_edit, except: [:index, :show]
+
 
   # GET /dvds
   # GET /dvds.json

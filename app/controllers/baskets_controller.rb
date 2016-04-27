@@ -4,7 +4,8 @@ class BasketsController < ApplicationController
   # GET /baskets
   # GET /baskets.json
   def index
-    @baskets = Basket.all
+
+    @baskets = Basket.all.page(params[:page ] )
   end
 
   # GET /baskets/1
