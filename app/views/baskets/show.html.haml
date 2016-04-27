@@ -43,10 +43,15 @@
 
   %b Пользователь:
   = @basket.user.name
--if @basket.status == 0
+-if not User.edit_by?(@current_user)
+  -if @basket.status == 0
+    =link_to edit_basket_path(@basket), class: 'btn btn-primary' do
+      =fa_icon 'edit'
+      Редактировать
+-if User.edit_by?(@current_user)
   =link_to edit_basket_path(@basket), class: 'btn btn-primary' do
     =fa_icon 'edit'
-    Редактировать
+    Редактировать      
 %p
 
 -if @basket.cart_items.any?

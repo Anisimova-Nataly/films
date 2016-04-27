@@ -8,21 +8,8 @@
     =link_to edit_cart_item_path(@cart_item, st: 1), class: 'btn btn-primary' do
       =fa_icon 'edit'
       Редактировать
-    
--if  User.edit_by?(@current_user)
-  %br
-  -if @cart_item.status == 2
-    =link_to edit_cart_item_path(@cart_item, st: 3), class: 'btn btn-primary' do
-      =fa_icon 'truck'
-      Перевести на статус "Доставляется"
-  -if @cart_item.status == 3
-    =link_to edit_cart_item_path(@cart_item, st: 4), class: 'btn btn-primary' do
-      =fa_icon 'check'
-      Перевести на статус "Доставлено"
-  -if @cart_item.status == 4
-    =link_to @cart_item, data: {method: :delete, confirm: t('helpers.sure')}, class: 'btn btn-danger' do
-      =fa_icon 'trash'
-      Убрать из корзины
+
+
 %br
 %br
 .row
@@ -42,12 +29,9 @@
     %small.text-muted руб
   -if @cart_item.amount
     %dt='Количество'
-    %dd=@cart_item.amount
+    %small.text-muted
+    =@cart_item.amount
+    %small.text-muted шт
   -if @cart_item.dvd.cover_type
     %dt='Тип обложки'
     %dd=@cart_item.dvd.cover_type
-
-.btn-toolbar
-  =link_to edit_basket_path(@cart_item.basket), class: 'btn btn-primary' do
-    =fa_icon 'reply'
-    Назад

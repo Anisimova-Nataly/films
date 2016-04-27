@@ -12,13 +12,32 @@ class BasketsController < ApplicationController
   def show
     @basket.set_price
     if params[:st]
-      if @basket.address
-        @basket.status=params[:st]
-        @basket.save
+      if @basket.address || @basket.type_of_delivery == '2'
+
+        if params[:st]==1
+          p=0
+          @basket.cart_items.each do |c|
+            if c.amount.to_i > c.dvd.amount
+              p=1
+            end
+          end
+          if p==0
+            @basket.cart_items.each do |c|
+              c.dvd.amount= c.dvd.amount- c.amount.to_i
+              c.dvd.amount.save
+            end
+          else
+            redirect_to @basket, notice: 'Нет в наличии'
+          end
+        else
+          @basket.status=params[:st]
+          @basket.save
+        end
       else
-          redirect_to @basket, notice: 'Не указан адрес'
+        redirect_to @basket, notice: 'Не указан адрес'
       end
     end
+
   end
 
   # GET /baskets/new
@@ -30,16 +49,33 @@ class BasketsController < ApplicationController
   # GET /baskets/1/edit
   def edit
     @basket.set_price
-    def show
-      if params[:st]
-        if @basket.address
+    if params[:st]
+      if @basket.address || @basket.type_of_delivery == '2'
+
+        if params[:st]==1
+          p=0
+          @basket.cart_items.each do |c|
+            if c.amount.to_i >c.dvd.amount
+              p=1
+            end
+          end
+          if p==0
+            @basket.cart_items.each do |c|
+              c.dvd.amount= c.dvd.amount - c.amount.to_i
+              c.dvd.amount.save
+            end
+          else
+            redirect_to @basket, notice: 'Нет в наличии'
+          end
+        else
           @basket.status=params[:st]
           @basket.save
-        else
-            redirect_to @basket, notice: 'Не указан адрес'
         end
+      else
+        redirect_to @basket, notice: 'Не указан адрес'
       end
     end
+
 end
 
   # POST /baskets
@@ -63,7 +99,7 @@ end
   # PATCH/PUT /baskets/1
   # PATCH/PUT /baskets/1.json
   def update
-    @cart_item.basket.set_price
+    @basket.set_price
     respond_to do |format|
       if @basket.update(basket_params)
         format.html { redirect_to @basket, notice: 'Basket was successfully updated.' }
